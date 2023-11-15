@@ -19,8 +19,6 @@ use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
 
 //Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 
@@ -30,4 +28,3 @@ Route::group(['middleware' => ['web']], function () {
     // Add the Sanctum CSRF cookie route
     Route::get('/sanctum/csrf-cookie', [CsrfCookieController::class, 'show']);
 });
-
