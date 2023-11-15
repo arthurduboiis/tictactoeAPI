@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
+
     public function register(Request $request)
     {
         $this->validate($request, [
