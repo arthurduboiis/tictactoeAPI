@@ -7,25 +7,20 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function showLoginForm()
-    {
-        return view('auth.login');
-    }
-
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return view('auth.success');
+            return response()->json(['message' => 'Connexion réussie']);
         }
 
-        return back()->withErrors(['email' => 'Identifiants invalides']);
+        return response()->json(['error' => 'Identifiants invalides'], 401);
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect('/');
+        return response()->json(['message' => 'Déconnexion réussie']);
     }
 }

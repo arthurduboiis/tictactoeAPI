@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function showRegistrationForm()
-    {
-        return view('auth.register');
-    }
-
     public function register(Request $request)
     {
         $this->validate($request, [
@@ -21,12 +16,12 @@ class RegisterController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        User::create([
+        $user = User::create([
             'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);
 
-        return view('auth.success');
+        return response()->json(['message' => 'Inscription réussie', 'user' => $user], 201);
     }
 }
