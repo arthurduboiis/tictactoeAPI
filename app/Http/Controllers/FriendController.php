@@ -87,4 +87,32 @@ class FriendController extends Controller
 
         return response()->json(['message' => 'Demande d\'ami rejetée']);
     }
+
+    public function pendingFriend()
+    {
+        $user = auth()->user();
+
+        $pendingFriend = Friendship::where('friend_id', $user->userID)
+            ->where('status', 'pending')
+            ->get();
+
+        return response()->json(['pending_friend' => $pendingFriend]);
+    }
+
+    public function getFriends(Request $request)
+    {
+        $user = auth()->user();
+
+        $friends = Friendship::where('userID', $user->userID)
+            ->where('status', 'accepted')
+            ->get();
+
+        $inverseFriends = Friendship::where('friend_id', $user->userID)
+            ->where('status', 'accepted')
+            ->get();
+
+        $allFriends = $friends->merge($inverseFriends);
+
+        return response()->json(['friends' => $allFriends]);
+    }
 }
