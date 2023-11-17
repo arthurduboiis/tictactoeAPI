@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('status')->default('pending');
             $table->timestamps();
 
-            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('friend_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('userID')->references('userId')->on('users')->onDelete('cascade');
+            $table->foreign('friend_id')->references('userId')->on('users')->onDelete('cascade');
 
             $table->unique(['userID', 'friend_id']);
         });
@@ -28,7 +28,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('friendships');
     }
