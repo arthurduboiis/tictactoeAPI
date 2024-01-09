@@ -96,7 +96,13 @@ class FriendController extends Controller
             ->where('status', 'pending')
             ->get();
 
-        return response()->json(['pending_friend' => $pendingFriend]);
+        // create table of users instead of table of friendship
+        $users = [];
+        foreach ($pendingFriend as $friend) {
+            $users[] = User::where('userID', $friend->userID)->first();
+        }
+
+        return response()->json(['pending_friend' => $users]);
     }
 
     public function getFriends(Request $request)
@@ -113,6 +119,11 @@ class FriendController extends Controller
 
         $allFriends = $friends->merge($inverseFriends);
 
-        return response()->json(['friends' => $allFriends]);
+        $users = [];
+        foreach ($allFriends as $friendship) {
+            $users[] = User::where('userID', $friendship->userID)->first();
+        }
+
+        return response()->json(['friends' => $users]);
     }
 }
