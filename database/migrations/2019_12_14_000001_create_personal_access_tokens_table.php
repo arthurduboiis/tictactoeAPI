@@ -9,21 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('personal_access_tokens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tokenable_id');
-            $table->string('tokenable_type', 191);
-            $table->string('name', 191);
-            $table->text('token');
+            $table->morphs('tokenable');
+            $table->string('name');
+            $table->string('token', 64)->unique();
+            $table->text('abilities')->nullable();
             $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
-
-            $table->index(['tokenable_type', 'tokenable_id'], 'pat_tti_index');
         });
     }
-
 
     /**
      * Reverse the migrations.

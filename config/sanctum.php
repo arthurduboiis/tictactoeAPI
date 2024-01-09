@@ -3,7 +3,7 @@
 use Laravel\Sanctum\Sanctum;
 
 return [
-
+    'user_model' => App\Models\User::class,
     /*
     |--------------------------------------------------------------------------
     | Stateful Domains
