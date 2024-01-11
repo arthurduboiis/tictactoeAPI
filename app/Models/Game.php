@@ -14,8 +14,7 @@ class Game extends Model
         'userID_joueur_1',
         'userID_joueur_2',
         'state',
-        'win',
-        'equal',
+        'gameCode',
     ];
 
     public function joueur1()
@@ -28,8 +27,4 @@ class Game extends Model
         return $this->belongsTo(User::class, 'userID_joueur_2');
     }
 
-    public function gagnant()
-    {
-        return $this->belongsTo(User::class, 'win');
-    }
 }

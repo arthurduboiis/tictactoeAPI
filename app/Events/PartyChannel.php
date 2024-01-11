@@ -1,24 +1,24 @@
 <?php
 
-use App\Models\Party;
+use App\Models\Game;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\Channel;
 
 class PartyChannel implements ShouldBroadcast {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $party;
+    public $game;
 
-    public function __construct(Party $party)
+    public function __construct(Game $game)
     {
-        $this->party = $party;
+        $this->game = $game;
     }
 
     public function broadcastOn()
     {
-        return new PrivateChannel('party.'.$this->party->id);
+        return new Channel('game.'.$this->game->gameId);
     }
 }
