@@ -13,8 +13,11 @@ class CreateGameTable extends Migration
             $table->unsignedBigInteger('userID_joueur_1');
             $table->unsignedBigInteger('userID_joueur_2');
             $table->string('state', 50);
+            $table->unsignedBigInteger('win');
+            $table->boolean('equal')->default(0);
             $table->foreign('userID_joueur_1')->references('userID')->on('users');
             $table->foreign('userID_joueur_2')->references('userID')->on('users');
+            $table->foreign('win')->references('userID')->on('users');
         });
     }
 
