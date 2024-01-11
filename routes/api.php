@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\FriendController;
+// use App\Http\Controllers\MorpionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/reject-friend', [FriendController::class, 'rejectFriend']);
     Route::get('/pending-friend', [FriendController::class, 'pendingFriend']);
     Route::get('/get-friend', [FriendController::class, 'getFriends']);
+    // Route::post('/update-results', [MorpionController::class, 'updateResults']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);

@@ -43,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    //TODO
+    public function ranking()
+    {
+        return $this->hasOne(Ranking::class, 'userID');
+    }
 }
