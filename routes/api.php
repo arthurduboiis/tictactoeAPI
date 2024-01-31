@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\FriendController;
 // use App\Http\Controllers\MorpionController;
+use App\Http\Controllers\RankingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/pending-friend', [FriendController::class, 'pendingFriend']);
     Route::get('/get-friend', [FriendController::class, 'getFriends']);
     // Route::post('/update-results', [MorpionController::class, 'updateResults']);
+    Route::get('/ranking', [RankingController::class, 'index']);
 });
 
+Route::get('/top-players', [RankingController::class, 'getTopPlayers']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [RegisterController::class, 'register']);

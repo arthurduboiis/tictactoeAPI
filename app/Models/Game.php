@@ -7,29 +7,35 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
     protected $table = 'game';
-    protected $primaryKey = 'gameID';
+    protected $fillable = ['userID_joueur_1', 'userID_joueur_2', 'win', 'loose', 'equal', 'state', 'updated_at'];
     public $timestamps = false;
-
-    protected $fillable = [
-        'userID_joueur_1',
-        'userID_joueur_2',
-        'state',
-        'win',
-        'equal',
-    ];
-
-    public function joueur1()
+    public function calculateScore()
     {
-        return $this->belongsTo(User::class, 'userID_joueur_1');
+        $wins = $this->winner()->count() * 3;
+        $losses = $this->loser()->count() * 0; 
+        $draws = $this->player1()->where('equal', true)->orWhere('player2.equal', true)->count();
+        $score = $wins + $losses + $draws;
+
+        return $score;
     }
 
-    public function joueur2()
+    public function winner()
     {
-        return $this->belongsTo(User::class, 'userID_joueur_2');
+        return $this->belongsTo(User::class, 'win', 'userID');
     }
 
-    public function gagnant()
+    public function loser()
     {
-        return $this->belongsTo(User::class, 'win');
+        return $this->belongsTo(User::class, 'loose', 'userID');
+    }
+
+    public function player1()
+    {
+        return $this->belongsTo(User::class, 'userID_joueur_1', 'userID');
+    }
+
+    public function player2()
+    {
+        return $this->belongsTo(User::class, 'userID_joueur_2', 'userID');
     }
 }
