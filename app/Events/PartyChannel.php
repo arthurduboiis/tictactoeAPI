@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Events;
+
 use App\Models\Game;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -17,8 +19,10 @@ class PartyChannel implements ShouldBroadcast {
         $this->game = $game;
     }
 
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
-        return new Channel('game.'.$this->game->gameId);
+        return [
+            new Channel('party-' . $this->game->gameCode),
+        ];
     }
 }

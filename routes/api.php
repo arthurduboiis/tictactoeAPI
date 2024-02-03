@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get-friend', [FriendController::class, 'getFriends']);
 
     Route::post('/create-game', [GameController::class, 'createGame']);
+    Route::post('/join-game', [GameController::class, 'joinGame']);
     // Route::post('/update-results', [MorpionController::class, 'updateResults']);
 });
 

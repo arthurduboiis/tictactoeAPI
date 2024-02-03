@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use App\Http\Controllers\GameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('tictactoe.{gameCode}', function ($user, $gameCode) {
+    // Call the GameController to perform authorization logic
+    $controller = app(GameController::class);
+    
+    // You can define a method in GameController for the authorization logic
+    return $controller->authorizeChannel($user, $gameCode);
 });
